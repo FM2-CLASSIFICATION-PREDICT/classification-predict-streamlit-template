@@ -27,6 +27,10 @@ import joblib, os
 
 # Data dependencies
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+from sklearn import metrics
 
 # Extra Imports
 from PIL import Image
@@ -71,7 +75,8 @@ def main():
 	# Building prediction page
 	if selection == "Make a Prediction":
 		
-		st.info("Make a Prediction")
+		st.info("Something")
+		st.selectbox("Choose a Classifier", ["Default", "Wolf"])
 		# Creating a text box for user input
 		tweet_text = st.text_area("Enter Tweet","Type Here")
 
@@ -88,16 +93,26 @@ def main():
 			# more human interpretable.
 			st.success("Text Categorized as: {}".format(prediction))
 
+			#st.markdown("Accuracy", metrics.accuracy_score())
+
+
+
 	# Building information page
 	if selection == "Explore the Data":
 
 		st.subheader("Count of Sentiments in Training Data")
 
-		sentiment_count = raw["sentiment"].value_counts()
-		st.bar_chart(sentiment_count)
+		fig = plt.figure(figsize=(10, 4))
+		sns.countplot(x="sentiment", data=raw)
+		st.pyplot(fig)
+		
+		#st.bar_chart(counts)
+
+		#sentiment_count = raw["sentiment"].value_counts()
+		#st.bar_chart(sentiment_count)
 
 		st.subheader("Raw Training Data")
-		graph_selection = st.sidebar.selectbox("Select a Sentiment", ["All", "-1", "0", "1", "2"])
+		graph_selection = st.selectbox("Select a Sentiment", ["All", "-1", "0", "1", "2"])
 
 		if graph_selection == "All":
 
