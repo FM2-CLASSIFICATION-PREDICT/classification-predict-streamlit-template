@@ -82,8 +82,10 @@ def main():
 		tweet_text = st.text_area("Enter Tweet","Type Here")
 
 		if st.button("Classify"):
+			
 			# Transforming user input with vectorizer
 			vect_text = default_vectorizer.transform([tweet_text]).toarray()
+			
 			# Load your .pkl file with the model of your choice + make predictions
 			# Try loading in multiple models to give the user a choice
 			predictor = joblib.load(open(os.path.join("resources/Logistic_regression.pkl"),"rb"))
@@ -94,6 +96,17 @@ def main():
 			# more human interpretable.
 			st.success("Text Categorized as: {}".format(prediction))
 
+			probabilities = predictor.predict_proba(vect_text)
+
+			df_prob = pd.DataFrame(probabilities, columns = ['-1','0','1', '2'])
+
+			#st.bar_chart(x=['-1','0','1', '2'], data=df_prob[['-1','0','1', '2']])
+			
+			fig = plt.figure(figsize=(10, 4))
+			#sns.countplot(x="sentiment", data=raw)
+			
+			sns.barplot(data=df_prob)
+			st.pyplot(fig)
 			#st.markdown("Accuracy", metrics.accuracy_score())
 
 
@@ -106,7 +119,6 @@ def main():
 		fig = plt.figure(figsize=(10, 4))
 		#sns.countplot(x="sentiment", data=raw)
 		#st.pyplot(fig)
-
 	
 		search_term = st.text_input("Enter a search term:")
 		include_rt = st.checkbox("Include Retweets")
