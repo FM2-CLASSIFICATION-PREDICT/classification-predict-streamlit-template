@@ -48,6 +48,7 @@ default_vectorizer = joblib.load(default_vectorizer) # loading your vectorizer f
 #raw = pd.read_csv("resources/train.csv")
 raw = pd.read_csv("resources/Training_Data.csv")
 
+
 # The main function where we will build the actual app
 def main():
 	"""Tweet Classifier App with Streamlit """
@@ -100,73 +101,108 @@ def main():
 	# Building information page
 	if selection == "Explore the Data":
 
-		st.subheader("Count of Sentiments in Training Data")
+		st.subheader("Count of given shearch term  in each sentiment")
 
 		fig = plt.figure(figsize=(10, 4))
-		sns.countplot(x="sentiment", data=raw)
-		st.pyplot(fig)
+		#sns.countplot(x="sentiment", data=raw)
+		#st.pyplot(fig)
+
+	
+		search_term = st.text_input("Enter a search term:")
+		include_rt = st.checkbox("Include Retweets")
+
+		if include_rt:
+    			filtered_df = raw[raw['message'].str.contains(search_term, case=False) & raw['message'].str.contains("RT")]
+		else:
+    			filtered_df = raw[raw['message'].str.contains(search_term, case=False)]
 		
+		if search_term: 
+
+			filtered_df = raw[raw['message'].str.contains(search_term, case=False)]
+
+			if filtered_df.empty:
+				st.subheader("Shearch Result")
+				st.markdown("No result for the given shearch term")
+
+			else:
+				sentiment_counts = filtered_df['sentiment'].value_counts()
+				plt.style.use('default')
+				fig, ax = plt.subplots(figsize=(8, 8))
+				plt.style.use('default')
+				colors = ['#81cad6','#ff8379', '#3ea055', '#c093ea'] 
+				ax.pie(sentiment_counts, labels=sentiment_counts.index, autopct='%1.1f%%', startangle=90, colors=colors)
+				ax.set_title("Sentiment Distribution based on Search Term")
+			#plt.xlabel('Sentiment')
+			#plt.ylabel('Count')
+			#plt.title('Count of Sentiments based on Search Term')
+			#plt.xticks(rotation=45)
+				ax.axis('equal')
+				st.subheader("Count of Sentiments")
+				st.pyplot(fig)
+
+			st.dataframe(filtered_df[['sentiment', 'message']])
+
 		#st.bar_chart(counts)
 
 		#sentiment_count = raw["sentiment"].value_counts()
 		#st.bar_chart(sentiment_count)
 
-		st.subheader("Raw Training Data")
-		graph_selection = st.selectbox("Select a Sentiment", ["All", "-1", "0", "1", "2"])
+		#st.subheader("Raw Training Data")
+		#graph_selection = st.selectbox("Select a Sentiment", ["All", "-1", "0", "1", "2"])
 
-		if graph_selection == "All":
+		#if graph_selection == "All":
 
 			#st.markdown("## All Tweets")
 
-			st.info("All Tweets")
+			#st.info("All Tweets")
 
-			st.write(raw[['sentiment', 'message']])
+			#st.write(raw[['sentiment', 'message']])
 
-			st.table({"Number of Tweets" : len(raw), "Percentage of Dataset" : int((len(raw)/len(raw))*100)})
+			#st.table({"Number of Tweets" : len(raw), "Percentage of Dataset" : int((len(raw)/len(raw))*100)})
 
-		if graph_selection == "-1":
+		#if graph_selection == "-1":
 
-			st.info("Anti Climate Change Tweets")
+			#st.info("Anti Climate Change Tweets")
 
-			anti = raw[raw["sentiment"]==-1]
+			#anti = raw[raw["sentiment"]==-1]
 
-			st.write(anti[["sentiment", "message"]])
+			#st.write(anti[["sentiment", "message"]])
 
-			st.table({"Number of Tweets" : len(anti), "Percentage of Dataset" : int((len(anti)/len(raw))*100)})
+			#st.table({"Number of Tweets" : len(anti), "Percentage of Dataset" : int((len(anti)/len(raw))*100)})
 
-		if graph_selection == "0":
+		#if graph_selection == "0":
 			
-			st.info("Neutral to Climate Change Tweets")
+		#	st.info("Neutral to Climate Change Tweets")
 
-			neut = raw[raw["sentiment"]==0]
+		#	neut = raw[raw["sentiment"]==0]
 
-			st.write(neut[["sentiment", "message"]])
+		#	st.write(neut[["sentiment", "message"]])
 
-			st.table({"Number of Tweets" : int(len(neut)), "Percentage of Dataset" : int((len(neut)/len(raw))*100)})
+		#	st.table({"Number of Tweets" : int(len(neut)), "Percentage of Dataset" : int((len(neut)/len(raw))*100)})
 
-		if graph_selection == "1":
+		#if graph_selection == "1":
 			
-			st.info("Pro Climate Change Tweets")
+		#	st.info("Pro Climate Change Tweets")
 			
-			pro = raw[raw["sentiment"]==1]
+		#	pro = raw[raw["sentiment"]==1]
 
-			st.write(pro[["sentiment", "message"]])
+		#	st.write(pro[["sentiment", "message"]])
 
-			st.table({"Number of Tweets" : len(pro), "Percentage of Dataset" : int((len(pro)/len(raw))*100)})
+		#	st.table({"Number of Tweets" : len(pro), "Percentage of Dataset" : int((len(pro)/len(raw))*100)})
 
-		if graph_selection == "2":
+		#if graph_selection == "2":
 			
-			st.info("News Climate Change Tweets")
+		#	st.info("News Climate Change Tweets")
 			
-			news = raw[raw["sentiment"]==2]
+		#	news = raw[raw["sentiment"]==2]
 
-			st.write(news[["sentiment", "message"]])
+		#	st.write(news[["sentiment", "message"]])
 
-			st.table({"Number of Tweets" : len(news), "Percentage of Dataset" : int((len(news)/len(raw))*100)})	
+		#	st.table({"Number of Tweets" : len(news), "Percentage of Dataset" : int((len(news)/len(raw))*100)})	
 
-		st.subheader("Data Description")
+		#st.subheader("Data Description")
 		# You can read a markdown file from supporting resources folder
-		#st.markdown("Some information here")
+		st.markdown("Some information here")
 
 		st.markdown("-1 : Anti")
 		st.markdown("0 : Neutral")
@@ -175,7 +211,7 @@ def main():
 
 		#st.subheader("Raw Twitter data and label")
 		#if st.checkbox('Show raw data'): # data is hidden if box is unchecked
-			#st.write(raw[['sentiment', 'message']]) # will write the df to the page
+			#st.write(raw[['sentiment', 'message']]) # will write the df to the page'''
 
 	# Building Contributors Page
 	if selection == "Contributors":
