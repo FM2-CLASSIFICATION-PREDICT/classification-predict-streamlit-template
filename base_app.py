@@ -94,19 +94,30 @@ def main():
 			# When model has successfully run, will print prediction
 			# You can use a dictionary or similar structure to make this output
 			# more human interpretable.
-			st.success("Text Categorized as: {}".format(prediction))
+
+			class_dict = {-1 : "Anti", 0 : "Neutral", 1 : "Pro", 2 : "News"}
+
+			#st.success("Text Categorized as: {}".format(prediction))
+			
+			st.success("Text Categorized as: {}".format(class_dict[prediction[0]]))
 
 			probabilities = predictor.predict_proba(vect_text)
 
-			df_prob = pd.DataFrame(probabilities, columns = ['-1','0','1', '2'])
+			df_prob = pd.DataFrame(probabilities, columns = ['Anti','Neutral','Pro', 'News'])
+			
+			st.markdown("## Probability of Tweet being in each Sentiment")
 
-			#st.bar_chart(x=['-1','0','1', '2'], data=df_prob[['-1','0','1', '2']])
+			fig = plt.figure(figsize=(10, 7))
 			
-			fig = plt.figure(figsize=(10, 4))
-			#sns.countplot(x="sentiment", data=raw)
+			ax = sns.barplot(data=df_prob)
 			
-			sns.barplot(data=df_prob)
+			for i in ax.containers:
+				ax.bar_label(i, padding=2)
+
 			st.pyplot(fig)
+
+			
+
 			#st.markdown("Accuracy", metrics.accuracy_score())
 
 
