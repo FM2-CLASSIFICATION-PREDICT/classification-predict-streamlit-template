@@ -48,7 +48,6 @@ default_vectorizer = joblib.load(default_vectorizer) # loading your vectorizer f
 #raw = pd.read_csv("resources/train.csv")
 raw = pd.read_csv("resources/Training_Data.csv")
 
-
 # The main function where we will build the actual app
 def main():
 	"""Tweet Classifier App with Streamlit """
@@ -61,22 +60,14 @@ def main():
 
 	# Creating sidebar with selection box -
 	# you can create multiple pages this way
-	options = ["Overview and Instructions", "Make a Prediction", "Explore the Data", "Contributors"]
+	options = ["Make a Prediction", "Overview and Instructions", "Explore the Dataframe" , "Data Insights", "Contributors"]
 	selection = st.sidebar.selectbox("Choose Option", options)
-
-	#Building Overview page
-	if selection == "Overview and Instructions":
-	
-		st.info("Overview")
-		st.markdown("Description of scope and utility of application")
-		st.markdown("#")
-		st.info("Instructions", icon="ℹ️")
-		st.markdown("Provide instructions for use of different features")
 
 	# Building prediction page
 	if selection == "Make a Prediction":
 		
-		st.info("Something")
+		st.markdown("## Predict the sentiment of a tweet")
+		st.markdown("This will detail the steps to follow")
 		st.selectbox("Choose a Classifier", ["Default", "Wolf"])
 		# Creating a text box for user input
 		tweet_text = st.text_area("Enter Tweet","Type Here")
@@ -98,8 +89,6 @@ def main():
 			class_dict = {-1 : "Anti", 0 : "Neutral", 1 : "Pro", 2 : "News"}
 
 			#st.success("Text Categorized as: {}".format(prediction))
-			
-			st.success("Text Categorized as: {}".format(class_dict[prediction[0]]))
 
 			probabilities = predictor.predict_proba(vect_text)
 
@@ -115,17 +104,81 @@ def main():
 				ax.bar_label(i, padding=2)
 
 			st.pyplot(fig)
-
 			
+			st.markdown("The bar chart aboce displays...")
+
+			st.success("Your tweet has been classfied as: {}".format(class_dict[prediction[0]]))
 
 			#st.markdown("Accuracy", metrics.accuracy_score())
 
+	#Building Overview page
+	if selection == "Overview and Instructions":
+	
+		st.info("Overview")
+		st.markdown("Description of scope and utility of application")
+		st.markdown("#")
+		st.info("Instructions", icon="ℹ️")
+		st.markdown("Provide instructions for use of different features")
+
+	if selection == "Explore the Dataframe":
+		st.subheader("Raw Training Data")
+		graph_selection = st.selectbox("Select a Sentiment", ["All", "-1", "0", "1", "2"])
+
+		if graph_selection == "All":
+
+			#st.markdown("## All Tweets")
+
+			st.info("All Tweets")
+
+			st.write(raw[['sentiment', 'message']])
+
+			st.table({"Number of Tweets" : len(raw), "Percentage of Dataset" : int((len(raw)/len(raw))*100)})
+
+		if graph_selection == "-1":
+
+			st.info("Anti Climate Change Tweets")
+
+			anti = raw[raw["sentiment"]==-1]
+
+			st.write(anti[["sentiment", "message"]])
+
+			st.table({"Number of Tweets" : len(anti), "Percentage of Dataset" : int((len(anti)/len(raw))*100)})
+
+		if graph_selection == "0":
+			
+			st.info("Neutral to Climate Change Tweets")
+
+			neut = raw[raw["sentiment"]==0]
+
+			st.write(neut[["sentiment", "message"]])
+
+			st.table({"Number of Tweets" : int(len(neut)), "Percentage of Dataset" : int((len(neut)/len(raw))*100)})
+
+		if graph_selection == "1":
+			
+			st.info("Pro Climate Change Tweets")
+			
+			pro = raw[raw["sentiment"]==1]
+
+			st.write(pro[["sentiment", "message"]])
+
+			st.table({"Number of Tweets" : len(pro), "Percentage of Dataset" : int((len(pro)/len(raw))*100)})
+
+		if graph_selection == "2":
+			
+			st.info("News Climate Change Tweets")
+			
+			news = raw[raw["sentiment"]==2]
+
+			st.write(news[["sentiment", "message"]])
+
+			st.table({"Number of Tweets" : len(news), "Percentage of Dataset" : int((len(news)/len(raw))*100)})
 
 
 	# Building information page
-	if selection == "Explore the Data":
+	if selection == "Data Insights":
 
-		st.subheader("Count of given shearch term  in each sentiment")
+		st.subheader("Count of given search term  in each sentiment")
 
 		fig = plt.figure(figsize=(10, 4))
 		#sns.countplot(x="sentiment", data=raw)
@@ -137,7 +190,7 @@ def main():
 		if include_rt:
     			filtered_df = raw[raw['message'].str.contains(search_term, case=False) & raw['message'].str.contains("RT")]
 		else:
-    			filtered_df = raw[raw['message'].str.contains(search_term, case=False)]
+			filtered_df = raw[raw['message'].str.contains(search_term, case=False)]
 		
 		if search_term: 
 
@@ -169,59 +222,6 @@ def main():
 
 		#sentiment_count = raw["sentiment"].value_counts()
 		#st.bar_chart(sentiment_count)
-
-		#st.subheader("Raw Training Data")
-		#graph_selection = st.selectbox("Select a Sentiment", ["All", "-1", "0", "1", "2"])
-
-		#if graph_selection == "All":
-
-			#st.markdown("## All Tweets")
-
-			#st.info("All Tweets")
-
-			#st.write(raw[['sentiment', 'message']])
-
-			#st.table({"Number of Tweets" : len(raw), "Percentage of Dataset" : int((len(raw)/len(raw))*100)})
-
-		#if graph_selection == "-1":
-
-			#st.info("Anti Climate Change Tweets")
-
-			#anti = raw[raw["sentiment"]==-1]
-
-			#st.write(anti[["sentiment", "message"]])
-
-			#st.table({"Number of Tweets" : len(anti), "Percentage of Dataset" : int((len(anti)/len(raw))*100)})
-
-		#if graph_selection == "0":
-			
-		#	st.info("Neutral to Climate Change Tweets")
-
-		#	neut = raw[raw["sentiment"]==0]
-
-		#	st.write(neut[["sentiment", "message"]])
-
-		#	st.table({"Number of Tweets" : int(len(neut)), "Percentage of Dataset" : int((len(neut)/len(raw))*100)})
-
-		#if graph_selection == "1":
-			
-		#	st.info("Pro Climate Change Tweets")
-			
-		#	pro = raw[raw["sentiment"]==1]
-
-		#	st.write(pro[["sentiment", "message"]])
-
-		#	st.table({"Number of Tweets" : len(pro), "Percentage of Dataset" : int((len(pro)/len(raw))*100)})
-
-		#if graph_selection == "2":
-			
-		#	st.info("News Climate Change Tweets")
-			
-		#	news = raw[raw["sentiment"]==2]
-
-		#	st.write(news[["sentiment", "message"]])
-
-		#	st.table({"Number of Tweets" : len(news), "Percentage of Dataset" : int((len(news)/len(raw))*100)})	
 
 		#st.subheader("Data Description")
 		# You can read a markdown file from supporting resources folder
