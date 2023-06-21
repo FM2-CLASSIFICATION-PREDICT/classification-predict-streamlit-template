@@ -19,7 +19,7 @@ from Main_Page import raw
 
 #raw = pd.read_csv("resources/Training_Data.csv")
 
-st.set_page_config(layout="wide")
+#st.set_page_config(layout="wide")
 
 st.markdown("# Explore the Dataframe")
 #st.sidebar.markdown("# Explore the Dataframe")

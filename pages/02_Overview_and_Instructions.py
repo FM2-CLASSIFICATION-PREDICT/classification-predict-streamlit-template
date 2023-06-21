@@ -12,7 +12,7 @@ import streamlit as st
 #from PIL import Image
 #import plotly.express as px
 
-st.set_page_config(page_title="Overview and Instructions")
+#st.set_page_config(page_title="Overview and Instructions")
 
 st.markdown("# Overview and Instructions")
 #st.sidebar.markdown("# Overview and Instructions")

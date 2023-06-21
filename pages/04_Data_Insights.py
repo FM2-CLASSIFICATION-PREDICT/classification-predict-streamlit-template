@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 from Main_Page import raw
 
-st.set_page_config(layout="wide")
+#st.set_page_config(layout="wide")
 
 st.markdown("# Data Insights")
 #st.sidebar.markdown("# Data Insights")
