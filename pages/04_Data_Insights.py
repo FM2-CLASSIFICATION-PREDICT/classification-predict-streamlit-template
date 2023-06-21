@@ -1,8 +1,9 @@
 import streamlit as st
 #import joblib, os
+import os
 
 # Data dependencies
-#import pandas as pd
+import pandas as pd
 #import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -12,7 +13,12 @@ import matplotlib.pyplot as plt
 #from PIL import Image
 #import plotly.express as px
 
-from Main_Page import raw
+#from Main_Page import raw
+
+script_dir = os.path.dirname(__file__)
+full_path = os.path.join(script_dir, '../resources/Training_Data.csv')
+
+raw = pd.read_csv(full_path)
 
 #st.set_page_config(layout="wide")
 

@@ -1,5 +1,6 @@
 import streamlit as st
 #import joblib, os
+import os
 
 # Data dependencies
 import numpy as np
@@ -15,9 +16,12 @@ from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
 #import plotly.express as px
 
-from Main_Page import raw
+#from Main_Page import raw
 
-#raw = pd.read_csv("resources/Training_Data.csv")
+script_dir = os.path.dirname(__file__)
+full_path = os.path.join(script_dir, '../resources/Training_Data.csv')
+
+raw = pd.read_csv(full_path)
 
 #st.set_page_config(layout="wide")
 
