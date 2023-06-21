@@ -39,9 +39,20 @@ with tab1:
 		st.write(raw[['sentiment', 'message']])
 	with col2:
 		# Generate a word cloud image
-		stopwords = set(STOPWORDS)
+		
+		#raw['message'] = raw['message'].str.lower()
+
+		stopwords = STOPWORDS
+
+		wordcloud_exclude = ["Climate", "Change", "change" "Global", "Warming", "https", "t", "co", "rt", "amp", "U"]
+
+		for word in wordcloud_exclude:
+			stopwords.add(word)
+
+		stopwords = set(stopwords)
 		mask = np.array(Image.open("twitter_mask.png"))
 		wordcloud = WordCloud(stopwords=stopwords, background_color="white", max_words=100, mask=mask).generate(' '.join(raw['message']))
+		#wordcloud = wordcloud[wordcloud.str.len() <= 2]
 		# create twitter image
 		#image_colors = ImageColorGenerator(mask)
 		fig = plt.figure()
