@@ -3,31 +3,36 @@ import streamlit as st
 import os
 
 # Data dependencies
+import numpy as np
 import pandas as pd
 #import seaborn as sns
 import matplotlib.pyplot as plt
 
+from PIL import Image
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+
 #from sklearn import metrics
 
 # Extra Imports
-#from PIL import Image
+from PIL import Image
 #import plotly.express as px
 
 #from Main_Page import raw
+
+image = Image.open('WolfPackDown.jpg')
+st.sidebar.image(image)
 
 script_dir = os.path.dirname(__file__)
 full_path = os.path.join(script_dir, '../resources/Training_Data.csv')
 
 raw = pd.read_csv(full_path)
 
-#st.set_page_config(layout="wide")
-
-st.markdown("# 	:chart_with_upwards_trend: Data Insights")
+st.title(":chart_with_upwards_trend: Data Insights")
 #st.sidebar.markdown("# Data Insights")
 
 col1, col2 = st.columns((1, 2))
 
-col1.subheader("Count of given search term  in each sentiment")
+col1.subheader("Tweet Term Search")
 
 fig = plt.figure(figsize=(10, 4))
 
@@ -74,7 +79,31 @@ if search_term:
 		ax.axis('equal')
 		#col1.subheader("Count of Sentiments")
 		col1.pyplot(fig)
-		col2.dataframe(filtered_df[['sentiment', 'message']])
+		col1.dataframe(filtered_df[['sentiment', 'message']])
+
+		col2.markdown("## Wordcloud of related terms")
+
+		stopwords = STOPWORDS
+
+		wordcloud_exclude = ["Climate", "Change", "change" "Global", "Warming", "https", "t", "co", "rt", "amp", "U", "Â", "â", "Ã", "ã"]
+
+		for word in wordcloud_exclude:
+			stopwords.add(word)
+
+		stopwords = set(stopwords)
+		mask = np.array(Image.open("twitter_mask.png"))
+		wordcloud = WordCloud(stopwords=stopwords, background_color="white", max_words=100, mask=mask).generate(' '.join(filtered_df['message']))
+		#wordcloud = wordcloud[wordcloud.str.len() <= 2]
+		# create twitter image
+		#image_colors = ImageColorGenerator(mask)
+		fig = plt.figure()
+		#plt.imshow(wordcloud.recolor(color_func=image_colors), interpolation="bilinear")
+		plt.imshow(wordcloud, interpolation="bilinear")
+		plt.axis("off")
+		# store to file
+		#plt.savefig("twitter.png", format="png")
+		plt.show()
+		col2.pyplot(fig)
 
 #st.markdown("Some information here")
 

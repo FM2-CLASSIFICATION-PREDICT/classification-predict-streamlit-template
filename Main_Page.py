@@ -1,59 +1,46 @@
+# Required
 import streamlit as st
-import joblib, os
 
 # Data dependencies
+import joblib, os
+
+# Data Manipulation and Visualisation
+
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-
-#from sklearn import metrics
-
-# Extra Imports
 from PIL import Image
+
 #import plotly.express as px
+#import base64
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="Main_Page" ,layout="wide", initial_sidebar_state="collapsed") #initial_sidebar_state="auto","expanded"
 
-#image = Image.open('WolfPackDown.jpg')
-#st.sidebar.image(image)
+image = Image.open('WolfPackDown.jpg')
+st.sidebar.image(image)
 
-import base64
+st.title(":house_with_garden: Main Page")
 
-with open('WolfPackDown.jpg', "rb") as f:
-    data = base64.b64encode(f.read()).decode("utf-8")
-
-    st.sidebar.markdown(
-        f"""
-        <div style="display:table;margin-top:62%;margin-left:-4%;">
-            <img src="data:image/png;base64,{data}" width="330" height="330">
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-#default_vectorizer = open("resources/tfidfvect.pkl","rb")
-#default_vectorizer = joblib.load(default_vectorizer) # loading your vectorizer from the pkl file
+#with open('WolfPackDown.jpg', "rb") as f:
+#    data = base64.b64encode(f.read()).decode("utf-8")
+#
+#    st.sidebar.markdown(
+#        f"""
+#        <div style="display:table;margin-top:62%;margin-left:-4%;">
+#            <img src="data:image/png;base64,{data}" width="330" height="330">
+#        </div>
+#        """,
+#        unsafe_allow_html=True,
+#    )
 
 raw = pd.read_csv("resources/Training_Data.csv")
 
-st.title(":house_with_garden: Main page")
-#st.sidebar.markdown("# Main page 🎈")
-
 col1, col2 = st.columns(2)
 
-col1.markdown("## Predict the sentiment of a tweet")
-col1.markdown("This will detail the steps to follow")
-#col1.selectbox("Choose a Classifier", ["Default", "Logistic Regression", "Support Vector Machine", "Random Forest"])
-#model_type = col1.radio("Choose a classifier", ["Default", "Logistic Regression Classifier", "Support Vector Classifier", "K Nearest Neighbours" , "Random Forest Classifier"])
+col1.subheader("Predict the Sentiment of a Tweet")
 
-model_type = col1.radio("Choose a classifier", ["Logistic Regression Classifier", "Support Vector Classifier", "K Nearest Neighbours" , "Random Forest Classifier"])
-
-#model_type = col1.radio("Choose a classifier", ["Logistic Regression Classifier", "Support Vector Classifier", "K Nearest Neighbours"])
-
-#if model_type == "Default":
-#	default_vectorizer = open("resources/tfidfvect.pkl","rb")
-#	default_vectorizer = joblib.load(default_vectorizer)
-#	predictor = joblib.load(open(os.path.join("resources/Logistic_regression.pkl"),"rb"))
+model_type = col1.radio("Choose a Model Type", ["Logistic Regression Classifier",
+						"Support Vector Classifier", "K Nearest Neighbours" , "Random Forest Classifier"])
 
 if model_type == "Logistic Regression Classifier":
 	default_vectorizer = open("resources/cv_up_logreg.pkl","rb")
@@ -75,8 +62,7 @@ elif model_type == "Random Forest Classifier":
 	default_vectorizer = joblib.load(default_vectorizer)
 	predictor = joblib.load(open(os.path.join("resources/up_rfc_model.pkl"),"rb"))
 
-
-		# Creating a text box for user input
+# Creating a text box for user input
 tweet_text = col1.text_area("Enter Tweet","Type Here")
 
 if col1.button("Classify"):

@@ -9,10 +9,13 @@ import streamlit as st
 #from sklearn import metrics
 
 # Extra Imports
-#from PIL import Image
+from PIL import Image
 #import plotly.express as px
 
-st.markdown("# :wolf: Contact Us")
+image = Image.open('WolfPackDown.jpg')
+st.sidebar.image(image)
+
+st.title(":speech_balloon: Contact Us")
 #st.sidebar.markdown("# Contributors")
 
 st.markdown("## Wolf Pack Team")

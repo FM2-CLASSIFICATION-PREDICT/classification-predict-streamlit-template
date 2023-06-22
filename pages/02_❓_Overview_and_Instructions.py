@@ -9,12 +9,15 @@ import streamlit as st
 #from sklearn import metrics
 
 # Extra Imports
-#from PIL import Image
+from PIL import Image
 #import plotly.express as px
 
 #st.set_page_config(page_title="Overview and Instructions")
 
-st.markdown("# :question: Overview and Instructions")
+image = Image.open('WolfPackDown.jpg')
+st.sidebar.image(image)
+
+st.title(":question: Overview and Instructions")
 #st.sidebar.markdown("# Overview and Instructions")
 
 col1, col2, col3 = st.columns((1.8,0.5,1))
@@ -35,5 +38,5 @@ col1.markdown("KNN is a non-parametric algorithm that classifies data points bas
 col1.markdown("- Random Forest Classifier")
 col1.markdown("Details to be added")
 
-col3.info("Instructions", icon="ℹ️")
+col3.info("How to Use", icon="ℹ️")
 col3.markdown("Provide instructions for use of different features")
