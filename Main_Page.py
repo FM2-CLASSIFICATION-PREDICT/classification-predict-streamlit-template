@@ -9,24 +9,28 @@ import matplotlib.pyplot as plt
 #from sklearn import metrics
 
 # Extra Imports
-#from PIL import Image
+from PIL import Image
 #import plotly.express as px
 
 st.set_page_config(layout="wide")
+
+image = Image.open('WolfPackDown.jpg')
+
+st.sidebar.image(image)
 
 default_vectorizer = open("resources/tfidfvect.pkl","rb")
 default_vectorizer = joblib.load(default_vectorizer) # loading your vectorizer from the pkl file
 
 raw = pd.read_csv("resources/Training_Data.csv")
 
-st.title("Main page 🎈")
+st.title(":house_with_garden: Main page")
 #st.sidebar.markdown("# Main page 🎈")
 
 col1, col2 = st.columns(2)
 
 col1.markdown("## Predict the sentiment of a tweet")
 col1.markdown("This will detail the steps to follow")
-col1.selectbox("Choose a Classifier", ["Default", "Wolf"])
+col1.selectbox("Choose a Classifier", ["Default", "Logistic Regression", "Support Vector Machine", "Random Forest"])
 		# Creating a text box for user input
 tweet_text = col1.text_area("Enter Tweet","Type Here")
 

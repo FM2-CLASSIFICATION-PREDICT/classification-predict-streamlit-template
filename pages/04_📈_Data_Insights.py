@@ -22,7 +22,7 @@ raw = pd.read_csv(full_path)
 
 #st.set_page_config(layout="wide")
 
-st.markdown("# Data Insights")
+st.markdown("# 	:chart_with_upwards_trend: Data Insights")
 #st.sidebar.markdown("# Data Insights")
 
 col1, col2 = st.columns((1, 2))
@@ -76,9 +76,9 @@ if search_term:
 		col1.pyplot(fig)
 		col2.dataframe(filtered_df[['sentiment', 'message']])
 
-st.markdown("Some information here")
+#st.markdown("Some information here")
 
-st.markdown("-1 : Anti")
-st.markdown("0 : Neutral")
-st.markdown("1 : Pro")
-st.markdown("2 : News")
+#st.markdown("-1 : Anti")
+#st.markdown("0 : Neutral")
+#st.markdown("1 : Pro")
+#st.markdown("2 : News")

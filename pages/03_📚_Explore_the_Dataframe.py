@@ -25,7 +25,7 @@ raw = pd.read_csv(full_path)
 
 #st.set_page_config(layout="wide")
 
-st.markdown("# Explore the Dataframe")
+st.markdown("# :books: Explore the Dataframe")
 #st.sidebar.markdown("# Explore the Dataframe")
 
 #st.subheader("Raw Training Data")
@@ -44,7 +44,7 @@ with tab1:
 
 		stopwords = STOPWORDS
 
-		wordcloud_exclude = ["Climate", "Change", "change" "Global", "Warming", "https", "t", "co", "rt", "amp", "U"]
+		wordcloud_exclude = ["Climate", "Change", "change" "Global", "Warming", "https", "t", "co", "rt", "amp", "U", "Â", "â", "Ã", "ã"]
 
 		for word in wordcloud_exclude:
 			stopwords.add(word)
