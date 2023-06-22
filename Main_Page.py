@@ -14,12 +14,25 @@ from PIL import Image
 
 st.set_page_config(layout="wide")
 
-image = Image.open('WolfPackDown.jpg')
+#image = Image.open('WolfPackDown.jpg')
+#st.sidebar.image(image)
 
-st.sidebar.image(image)
+import base64
 
-default_vectorizer = open("resources/tfidfvect.pkl","rb")
-default_vectorizer = joblib.load(default_vectorizer) # loading your vectorizer from the pkl file
+with open('WolfPackDown.jpg', "rb") as f:
+    data = base64.b64encode(f.read()).decode("utf-8")
+
+    st.sidebar.markdown(
+        f"""
+        <div style="display:table;margin-top:62%;margin-left:-4%;">
+            <img src="data:image/png;base64,{data}" width="330" height="330">
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+#default_vectorizer = open("resources/tfidfvect.pkl","rb")
+#default_vectorizer = joblib.load(default_vectorizer) # loading your vectorizer from the pkl file
 
 raw = pd.read_csv("resources/Training_Data.csv")
 
@@ -30,7 +43,39 @@ col1, col2 = st.columns(2)
 
 col1.markdown("## Predict the sentiment of a tweet")
 col1.markdown("This will detail the steps to follow")
-col1.selectbox("Choose a Classifier", ["Default", "Logistic Regression", "Support Vector Machine", "Random Forest"])
+#col1.selectbox("Choose a Classifier", ["Default", "Logistic Regression", "Support Vector Machine", "Random Forest"])
+#model_type = col1.radio("Choose a classifier", ["Default", "Logistic Regression Classifier", "Support Vector Classifier", "K Nearest Neighbours" , "Random Forest Classifier"])
+
+model_type = col1.radio("Choose a classifier", ["Logistic Regression Classifier", "Support Vector Classifier", "K Nearest Neighbours" , "Random Forest Classifier"])
+
+#model_type = col1.radio("Choose a classifier", ["Logistic Regression Classifier", "Support Vector Classifier", "K Nearest Neighbours"])
+
+#if model_type == "Default":
+#	default_vectorizer = open("resources/tfidfvect.pkl","rb")
+#	default_vectorizer = joblib.load(default_vectorizer)
+#	predictor = joblib.load(open(os.path.join("resources/Logistic_regression.pkl"),"rb"))
+
+if model_type == "Logistic Regression Classifier":
+	default_vectorizer = open("resources/cv_up_logreg.pkl","rb")
+	default_vectorizer = joblib.load(default_vectorizer)
+	predictor = joblib.load(open(os.path.join("resources/up_logreg_model.pkl"),"rb"))
+
+elif model_type == "Support Vector Classifier":
+	default_vectorizer = open("resources/cv_up_svc.pkl","rb")
+	default_vectorizer = joblib.load(default_vectorizer)
+	predictor = joblib.load(open(os.path.join("resources/up_svc_model.pkl"),"rb"))
+
+elif model_type == "K Nearest Neighbours":
+	default_vectorizer = open("resources/cv_up_knn.pkl","rb")
+	default_vectorizer = joblib.load(default_vectorizer)
+	predictor = joblib.load(open(os.path.join("resources/up_knn_model.pkl"),"rb"))
+
+elif model_type == "Random Forest Classifier":
+	default_vectorizer = open("resources/cv_up_rfc.pkl","rb")
+	default_vectorizer = joblib.load(default_vectorizer)
+	predictor = joblib.load(open(os.path.join("resources/up_rfc_model.pkl"),"rb"))
+
+
 		# Creating a text box for user input
 tweet_text = col1.text_area("Enter Tweet","Type Here")
 
@@ -41,7 +86,7 @@ if col1.button("Classify"):
 			
 	# Load your .pkl file with the model of your choice + make predictions
 	# Try loading in multiple models to give the user a choice
-	predictor = joblib.load(open(os.path.join("resources/Logistic_regression.pkl"),"rb"))
+	#predictor = joblib.load(open(os.path.join("resources/Logistic_regression.pkl"),"rb"))
 	prediction = predictor.predict(vect_text)
 
 			# When model has successfully run, will print prediction
