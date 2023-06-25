@@ -87,7 +87,7 @@ if col1.button("Classify"):
 
 	df_prob = pd.DataFrame(probabilities, columns = ['Anti','Neutral','Pro', 'News'])
 			
-	col2.markdown("## Probability of Tweet being in each Sentiment")
+	col2.subheader("Probability of Tweet being in each Sentiment")
 
 	fig = plt.figure(figsize=(10, 7))
 			
@@ -98,6 +98,6 @@ if col1.button("Classify"):
 
 	col2.pyplot(fig)
 			
-	col2.markdown("The bar chart above displays...")
+	#col2.markdown("The bar chart above displays...")
 
 	st.success("Your tweet has been classfied as: {}".format(class_dict[prediction[0]]))
