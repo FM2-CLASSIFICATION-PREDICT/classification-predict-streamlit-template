@@ -89,9 +89,20 @@ if col1.button("Classify"):
 			
 	col2.subheader("Probability of Tweet being in each Sentiment")
 
+	#col2.markdown(
+    #"""
+    #<div style="text-align: center;">
+    #    <h2 style="font-size: 24px;">Probability of Tweet being in each Sentiment</h2>
+    #</div>
+    #""",
+    #unsafe_allow_html=True)
+
 	fig = plt.figure(figsize=(10, 7))
-			
-	ax = sns.barplot(data=df_prob)
+
+	color_map = {'Anti': 'red', 'Neutral': 'orange', 'Pro': 'green', 'News': 'purple'}
+
+
+	ax = sns.barplot(data=df_prob, palette=color_map.values())
 			
 	for i in ax.containers:
 		ax.bar_label(i, padding=2)
@@ -99,5 +110,78 @@ if col1.button("Classify"):
 	col2.pyplot(fig)
 			
 	#col2.markdown("The bar chart above displays...")
+	
+	col1.markdown("#")
+	#col1.markdown("")
 
-	st.success("Your tweet has been classfied as: {}".format(class_dict[prediction[0]]))
+	st.markdown(
+    """
+    <style>
+        .positive-label {
+            background-color: green;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+	    	font-size: 24px;
+        }
+        .negative-label {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+	    	font-size: 24px;
+        }
+        .neutral-label {
+            background-color: orange;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+	    	font-size: 24px;
+        }
+		.news-label {
+            background-color: purple;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+	    	font-size: 24px;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True)
+
+	if class_dict[prediction[0]] == "Pro":
+		#col1.success(" This tweet is pro climate change ⭐")
+		col1.markdown("""
+		<div style="text-align: center;">
+    <span class="positive-label">This tweet is Pro Climate Change ⭐</span>
+    </div>
+    """,
+    unsafe_allow_html=True)
+	elif class_dict[prediction[0]] == "Neutral":
+		#col1.success(" This tweet is neutral towards climate change ⚖️")
+		col1.markdown("""
+		<div style="text-align: center;">
+    <span class="neutral-label">This tweet is neutral towards climate change ⚖️</span>
+    </div>
+    """,
+    unsafe_allow_html=True)
+	elif class_dict[prediction[0]] == "Anti":
+		#col1.success(" This tweet is anti climate change 🚫")
+		col1.markdown("""
+		<div style="text-align: center;">
+    <span class="negative-label">This tweet is Anti Climate Change 🚫</span>
+    </div>
+    """,
+    unsafe_allow_html=True)
+	elif class_dict[prediction[0]] == "News":
+		#col1.success(" This tweet is from a news vendor 📣")
+		col1.markdown("""
+		<div style="text-align: center;">
+    <span class="news-label">This tweet is from a news vendor 📣</span>
+    </div>
+    """,
+    unsafe_allow_html=True)
+
+	#col1.success(" This tweet is {} climate change 😄".format(class_dict[prediction[0]]))
+
+	#st.balloons()

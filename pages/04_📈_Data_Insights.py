@@ -73,8 +73,13 @@ if col1.button("Search"):
 			plt.style.use('default')
 			fig, ax = plt.subplots(figsize=(7, 7))
 			plt.style.use('default')
-			colors = ['#3ea055','#c093ea', '#81cad6', '#ff8379']
-			ax.pie(sentiment_counts, labels=label_list, autopct='%2.1f%%', startangle=90, colors=colors, pctdistance=1.09, labeldistance=None)
+			#colors = ['#3ea055','#c093ea', '#81cad6', '#ff8379']
+
+			#color_map = {'1': 'red', '2': 'orange', '3': 'green', '4': 'purple'}
+			color_map = {'1': 'green', '2': 'purple', '3': 'orange', '4': 'red'}
+
+
+			ax.pie(sentiment_counts, labels=label_list, autopct='%2.1f%%', startangle=90, colors=color_map.values(), pctdistance=1.09, labeldistance=None)
 			ax.legend()
 		
 			ax.axis('equal')
