@@ -42,20 +42,21 @@ col3.info("How to Use", icon="ℹ️")
 
 # Text Classification
 col3.subheader("Text Classification")
+col3.markdown("- Navigate to the main page.")
 col3.markdown("- Choose a model from the provided options.")
 col3.markdown("- Enter a piece of text in the designated input field.")
 col3.markdown("- Click the 'Classify' button.")
-col3.markdown("- The app will use the selected model to classify the entered text and display the predicted classification.")
+col3.markdown("- The selected model will be used to classify the entered text and display the predicted classification.")
 
 # Sentiment Filtering
 col3.subheader("Sentiment Filtering")
-col3.markdown("- Navigate to the 'Explore the Data' page.")
-col3.markdown("- Click on the desired sentiment option (e.g. All, Anti, Neutral, Pro, or News).")
-col3.markdown("- The app will update the displayed dataframe to show only the rows that match the selected sentiment.")
+col3.markdown("- Navigate to the 'Explore the Dataframe' page.")
+col3.markdown("- Use the tabs to filter the dataframe (e.g. All, Anti, Neutral, Pro, or News).")
+col3.markdown("- The displayed dataframe will update to show only the rows that match the selected sentiment.")
 
 # Observations Search
 col3.subheader("Observations Search")
 col3.markdown("- Navigate to the 'Data Insights' tab.")
 col3.markdown("- Enter a search term in the provided search box.")
 col3.markdown("- Click the 'Search' button.")
-col3.markdown("- The app will display all observations from the training data that contain the entered search term.")
+col3.markdown("- All observations from the training data that contain the entered search term will be displayed.")

@@ -189,8 +189,6 @@ with tab2:
 
 	col1, col2 = st.columns(2)
 
-	#top_unigrams, top_bigrams = calculate_top_keywords(raw)
-
 	show_uni2 = col1.checkbox("Show Top 10 Unigrams", key="AntiTab1")
 
 	if show_uni2:
@@ -201,7 +199,6 @@ with tab2:
 		fig, ax = plt.subplots(figsize=(8, 6))
 		sns.barplot(y=[keyword[0] for keyword in top_unigrams], x=[keyword[1] for keyword in top_unigrams], ax=ax, orient='h', palette="hls")
 		ax.set_xlabel("Count")
-		#plt.xticks(rotation=45)
 		col1.pyplot(fig)
 
 	show_bi2 = col2.checkbox("Show Top 10 Bigrams", key="AntiTab2")
@@ -212,10 +209,8 @@ with tab2:
 		
 		col2.subheader("Top 10 Bigrams")
 		fig, ax = plt.subplots(figsize=(8, 6))
-		#sns.barplot(y=[keyword[0] for keyword in top_bigrams], x=[keyword[1] for keyword in top_bigrams], ax=ax, orient='h', palette="hls")
 		sns.barplot(y=[keyword[0][0] + " " + keyword[0][1] for keyword in top_bigrams], x=[keyword[1] for keyword in top_bigrams], ax=ax, orient='h', palette="hls")
 		ax.set_xlabel("Count")
-		#plt.xticks(rotation=45)
 		col2.pyplot(fig)
 	
 with tab3:
@@ -232,6 +227,32 @@ with tab3:
 	#st.header("Top Bigrams")
 	#for bigram, count in top_bigrams:
 	#	st.write(f"{' '.join(bigram)}: {count}")
+
+	col1, col2 = st.columns(2)
+
+	show_uni3 = col1.checkbox("Show Top 10 Unigrams", key="NeutralTab1")
+
+	if show_uni3:
+		
+		top_unigrams = calculate_unigrams(neutral)
+
+		col1.subheader("Top 10 Unigrams")
+		fig, ax = plt.subplots(figsize=(8, 6))
+		sns.barplot(y=[keyword[0] for keyword in top_unigrams], x=[keyword[1] for keyword in top_unigrams], ax=ax, orient='h', palette="hls")
+		ax.set_xlabel("Count")
+		col1.pyplot(fig)
+
+	show_bi3 = col2.checkbox("Show Top 10 Bigrams", key="NeutralTab2")
+
+	if show_bi3:
+		
+		top_bigrams = calculate_bigrams(neutral)
+		
+		col2.subheader("Top 10 Bigrams")
+		fig, ax = plt.subplots(figsize=(8, 6))
+		sns.barplot(y=[keyword[0][0] + " " + keyword[0][1] for keyword in top_bigrams], x=[keyword[1] for keyword in top_bigrams], ax=ax, orient='h', palette="hls")
+		ax.set_xlabel("Count")
+		col2.pyplot(fig)	
 	
 with tab4:
 	st.subheader("Pro Sentiment Tweet Data")
@@ -247,6 +268,33 @@ with tab4:
 	#st.header("Top Bigrams")
 	#for bigram, count in top_bigrams:
 	#	st.write(f"{' '.join(bigram)}: {count}")
+
+	col1, col2 = st.columns(2)
+
+	show_uni4 = col1.checkbox("Show Top 10 Unigrams", key="ProTab1")
+
+	if show_uni4:
+		
+		top_unigrams = calculate_unigrams(pro)
+
+		col1.subheader("Top 10 Unigrams")
+		fig, ax = plt.subplots(figsize=(8, 6))
+		sns.barplot(y=[keyword[0] for keyword in top_unigrams], x=[keyword[1] for keyword in top_unigrams], ax=ax, orient='h', palette="hls")
+		ax.set_xlabel("Count")
+		col1.pyplot(fig)
+
+	show_bi4 = col2.checkbox("Show Top 10 Bigrams", key="ProTab2")
+
+	if show_bi4:
+		
+		top_bigrams = calculate_bigrams(pro)
+		
+		col2.subheader("Top 10 Bigrams")
+		fig, ax = plt.subplots(figsize=(8, 6))
+		sns.barplot(y=[keyword[0][0] + " " + keyword[0][1] for keyword in top_bigrams], x=[keyword[1] for keyword in top_bigrams], ax=ax, orient='h', palette="hls")
+		ax.set_xlabel("Count")
+		col2.pyplot(fig)
+
 	
 with tab5:
 	st.subheader("All Sentiment Tweet Data")
@@ -262,6 +310,32 @@ with tab5:
 	#st.header("Top Bigrams")
 	#for bigram, count in top_bigrams:
 	#	st.write(f"{' '.join(bigram)}: {count}")
+
+	col1, col2 = st.columns(2)
+
+	show_uni5 = col1.checkbox("Show Top 10 Unigrams", key="NewsTab1")
+
+	if show_uni5:
+		
+		top_unigrams = calculate_unigrams(news)
+
+		col1.subheader("Top 10 Unigrams")
+		fig, ax = plt.subplots(figsize=(8, 6))
+		sns.barplot(y=[keyword[0] for keyword in top_unigrams], x=[keyword[1] for keyword in top_unigrams], ax=ax, orient='h', palette="hls")
+		ax.set_xlabel("Count")
+		col1.pyplot(fig)
+
+	show_bi5 = col2.checkbox("Show Top 10 Bigrams", key="NewsTab2")
+
+	if show_bi5:
+		
+		top_bigrams = calculate_bigrams(news)
+		
+		col2.subheader("Top 10 Bigrams")
+		fig, ax = plt.subplots(figsize=(8, 6))
+		sns.barplot(y=[keyword[0][0] + " " + keyword[0][1] for keyword in top_bigrams], x=[keyword[1] for keyword in top_bigrams], ax=ax, orient='h', palette="hls")
+		ax.set_xlabel("Count")
+		col2.pyplot(fig)
 
 
 #graph_selection = st.selectbox("Select a Sentiment", ["All", "-1", "0", "1", "2"])

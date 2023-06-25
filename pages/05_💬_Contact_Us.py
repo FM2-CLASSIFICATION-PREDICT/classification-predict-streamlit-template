@@ -16,6 +16,9 @@ col1.markdown("Sias Willemse - siaswillemse14@gmail.com")
 col1.subheader("Lead Data Engineer")
 col1.markdown("Chesley Rogerson - ckrogerson@gmail.com")
 
+col1.subheader("Data Engineer")
+col1.markdown("Boitumelo Mphahlele - teeboitumelo@gmail.com")
+
 col1.subheader("Lead Data Scientist")
 col1.markdown("Thato Molapisi - tee.molapisi@gmail.com")
 
@@ -25,13 +28,10 @@ col1.markdown("Thabiso Khoza - thabisogcwabaza@icloud.com")
 col1.subheader("Domain Expert")
 col1.markdown("Thebe Dikobo - tumelokethebe.d@gmail.com")
 
-col1.subheader("Communications Expert")
-col1.markdown("Boitumelo Mphahlele - teeboitumelo@gmail.com")
-
 col2.subheader("In Colloboration with:")
 col2.markdown("##")
 
-logo_paths = ["AWS.png", "Comet.JPG", "python.jpg", "streamlit.png"]
+logo_paths = ["AWS.png", "Comet.JPG", "python.png", "streamlit.png"]
 
 logo_width = 100
 
