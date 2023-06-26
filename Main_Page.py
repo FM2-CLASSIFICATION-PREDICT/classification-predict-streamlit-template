@@ -14,7 +14,7 @@ from PIL import Image
 #import plotly.express as px
 #import base64
 
-st.set_page_config(page_title="Main_Page" ,layout="wide", initial_sidebar_state="collapsed") #initial_sidebar_state="auto","expanded"
+st.set_page_config(page_title="Main_Page" ,layout="wide", initial_sidebar_state="auto") #initial_sidebar_state="auto","expanded"
 
 image = Image.open('WolfPackDown.jpg')
 st.sidebar.image(image)
@@ -37,7 +37,7 @@ raw = pd.read_csv("resources/Training_Data.csv")
 
 col1, col2 = st.columns(2)
 
-col1.subheader("Predict the Sentiment of a Tweet")
+col1.subheader("Predict Tweet Sentiment")
 
 model_type = col1.radio("Choose a Model Type", ["Logistic Regression Classifier",
 						"Support Vector Classifier", "K Nearest Neighbours" , "Random Forest Classifier"])
@@ -81,13 +81,12 @@ if col1.button("Classify"):
 
 	class_dict = {-1 : "Anti", 0 : "Neutral", 1 : "Pro", 2 : "News"}
 
-			#st.success("Text Categorized as: {}".format(prediction))
-
 	probabilities = predictor.predict_proba(vect_text)
 
 	df_prob = pd.DataFrame(probabilities, columns = ['Anti','Neutral','Pro', 'News'])
 			
-	col2.subheader("Probability of Tweet being in each Sentiment")
+	#col2.subheader("Probability of Tweet being in each Sentiment")
+	col2.subheader("Sentiment Probability Distribution")
 
 	#col2.markdown(
     #"""
@@ -101,7 +100,6 @@ if col1.button("Classify"):
 
 	color_map = {'Anti': 'red', 'Neutral': 'orange', 'Pro': 'green', 'News': 'purple'}
 
-
 	ax = sns.barplot(data=df_prob, palette=color_map.values())
 			
 	for i in ax.containers:
@@ -109,10 +107,7 @@ if col1.button("Classify"):
 
 	col2.pyplot(fig)
 			
-	#col2.markdown("The bar chart above displays...")
-	
 	col1.markdown("#")
-	#col1.markdown("")
 
 	st.markdown(
     """
@@ -151,7 +146,7 @@ if col1.button("Classify"):
 
 	if class_dict[prediction[0]] == "Pro":
 		#col1.success(" This tweet is pro climate change ⭐")
-		col1.markdown("""
+		st.markdown("""
 		<div style="text-align: center;">
     <span class="positive-label">This tweet is Pro Climate Change ⭐</span>
     </div>
@@ -159,7 +154,7 @@ if col1.button("Classify"):
     unsafe_allow_html=True)
 	elif class_dict[prediction[0]] == "Neutral":
 		#col1.success(" This tweet is neutral towards climate change ⚖️")
-		col1.markdown("""
+		st.markdown("""
 		<div style="text-align: center;">
     <span class="neutral-label">This tweet is neutral towards climate change ⚖️</span>
     </div>
@@ -167,7 +162,7 @@ if col1.button("Classify"):
     unsafe_allow_html=True)
 	elif class_dict[prediction[0]] == "Anti":
 		#col1.success(" This tweet is anti climate change 🚫")
-		col1.markdown("""
+		st.markdown("""
 		<div style="text-align: center;">
     <span class="negative-label">This tweet is Anti Climate Change 🚫</span>
     </div>
@@ -175,7 +170,7 @@ if col1.button("Classify"):
     unsafe_allow_html=True)
 	elif class_dict[prediction[0]] == "News":
 		#col1.success(" This tweet is from a news vendor 📣")
-		col1.markdown("""
+		st.markdown("""
 		<div style="text-align: center;">
     <span class="news-label">This tweet is from a news vendor 📣</span>
     </div>

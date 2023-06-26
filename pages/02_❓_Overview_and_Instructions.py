@@ -1,42 +1,33 @@
 import streamlit as st
-#import joblib, os
 
-# Data dependencies
-#import pandas as pd
-#import seaborn as sns
-#import matplotlib.pyplot as plt
-
-#from sklearn import metrics
-
-# Extra Imports
 from PIL import Image
-#import plotly.express as px
-
-#st.set_page_config(page_title="Overview and Instructions")
 
 image = Image.open('WolfPackDown.jpg')
 st.sidebar.image(image)
 
 st.title(":question: Overview and Instructions")
-#st.sidebar.markdown("# Overview and Instructions")
 
 col1, col2, col3 = st.columns((1.8,0.5,1))
 
 col1.subheader("Overview")
-col1.markdown("This streamlit application has been developed in conjunction with the construction of predictive machine learning models to provide an easy interface to make predictions as well as explore the data used to train the various models.")
+#col1.markdown("This streamlit application has been developed in conjunction with the construction of predictive machine learning models to provide an easy interface to make predictions as well as explore the data used to train the various models.")
+col1.markdown("This Streamlit application has been designed to accompany the development of predictive machine learning models. Its purpose is to provide a user-friendly interface for making predictions and exploring the training data used in these models.")
+
 st.markdown("#")
+
 col1.subheader("Models Investigated")
+
 col1.markdown("- Logistic Regression Classifier")
-col1.markdown("This model is commonly used for binary classification tasks and is well-suited for analyzing the relationship between the input features and the target variable assuming a linear relationship")
+col1.markdown("The logistic regression model is commonly used for binary classification tasks and is well-suited for analyzing the relationship between the input features and the target variable assuming a linear relationship.")
 
 col1.markdown("- Support Vector Classifier")
-col1.markdown("SVM is a powerful algorithm for both binary and multi-class classification. It aims to find an optimal hyperplane that maximally separates the data points of different classes.")
+col1.markdown("Support Vector Machines are powerful algorithms for both binary and multi-class classification. It aims to find an optimal hyperplane that maximally separates the data points of different classes.")
 
 col1.markdown("- K Nearest Neighbours Classifier")
 col1.markdown("KNN is a non-parametric algorithm that classifies data points based on their proximity to the nearest neighbors.")
 
 col1.markdown("- Random Forest Classifier")
-col1.markdown("Random Forest Classifier is an ensemble learning method that combines multiple decision trees to make predictions.")
+col1.markdown("A Random Forest Classifier is an ensemble learning method that combines multiple decision trees to make predictions.")
 
 col3.info("How to Use", icon="ℹ️")
 
