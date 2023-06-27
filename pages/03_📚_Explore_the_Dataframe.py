@@ -212,7 +212,7 @@ with tab4:
 
 	
 with tab5:
-	st.subheader("All Sentiment Tweet Data")
+	st.subheader("News Sentiment Tweet Data")
 	news = raw[raw["sentiment"]==2]
 	st.dataframe(news[['sentiment', 'message']], width=1560, column_config={"sentiment": "Sentiment", "message": "Tweet"}, hide_index=True)
 
